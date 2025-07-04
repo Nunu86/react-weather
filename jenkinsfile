@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define environment variables if needed
+       
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Cloning repository...'
+                git credentialsId: 'Git', url: 'https://github.com/Nunu86/react-weather.git'
+            }
+        }
+
+       post {
+        always {
+            echo "🧹 Cleaning up workspace..."
+            cleanWs()
+        }
+        success {
+            echo "✅ Build and deploy completed successfully!"
+        }
+        failure {
+            echo "❌ Build or deployment failed. Check logs for details."
+        }
+    }
+}
+
