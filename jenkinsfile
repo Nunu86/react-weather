@@ -1,12 +1,23 @@
 pipeline {
     agent any
 
+    tools {
+       nodejs 'NodeJS'
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
                 checkout scmGit(branches: [[name: '*/dev']], userRemoteConfigs: [[credentialsId: 'Git', url: 'https://github.com/Nunu86/react-weather.git']])
             }
+            
+        }
+         stage('Installing dependencies') {
+            steps {
+                echo '📦 Installing Node.js dependencies...'
+                sh 'npm install'                
+            }            
         }
     }
 
