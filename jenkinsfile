@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
-              git branch: 'dev', credentialsId: 'Git', url: 'https://github.com/Nunu86/react-weather.git'
+              git branch: '*/dev', credentialsId: 'Git', url: 'https://github.com/Nunu86/react-weather.git'
             }
         }
 
