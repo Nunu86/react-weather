@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
-                checkout scmGit(branches: [[name: '*/dev']], userRemoteConfigs: [[credentialsId: 'Git', url: 'https://github.com/Nunu86/react-weather.git']])
+                git branch: 'dev', credentialsId: 'GitCred', poll: false, url: 'https://github.com/Nunu86/react-weather.git'
             }
             
         }
