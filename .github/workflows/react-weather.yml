@@ -1,24 +1,28 @@
 name: React-weather-app
+
 on:
   push:
     branches: [dev]
+
+permissions:
+  id-token: write   # Required for OIDC
+  contents: read    # To fetch the repository code
+
 jobs:
   build:
-    name: build and deploy react-weather-app
-    runs-on: ubuntu:latest
-    
-  permissions:
-    id-token: write   # required for OIDC
-    contents: read    # to fetch the repository code
-    
-  steps:
-    -name: checkout
-     uses: actions/checkout@v4.2.2
-    -name: configure aws credentials using oidc
-     uses: aws-actions/configure-aws-credentials@v4.1.0
-     with:
-       aws-region: us-east-1
-       role-to-assume: arn:aws:iam::621214085626:role/GitHub-to-ECR-and-ECS
+    name: Build and deploy react-weather-app
+    runs-on: ubuntu-latest
 
-    -name: confirm-oidc
-     run: aws sts get-caller-identity
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Configure AWS credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::621214085626:role/GitHub-to-ECR-and-ECS
+
+      - name: Confirm OIDC
+        run: aws sts get-caller-identity
+
