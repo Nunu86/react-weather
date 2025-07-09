@@ -5,8 +5,8 @@ on:
     branches: [dev]
 
 permissions:
-  id-token: write   # Required for OIDC
-  contents: read    # To fetch the repository code
+  id-token: write # Required for OIDC
+  contents: read # To fetch the repository code
 
 jobs:
   build:
@@ -30,14 +30,10 @@ jobs:
         uses: actions/setup-node@v3.9.1
 
       - name: install nodejs dependencies
-        run: npm install       
+        run: npm install
 
       - name: optimize static website
         run: npm run build
 
       - name: deploy to s3
-        run: aws s3 sync build/ s3://remote-backend300525 --delete
-        
-
-      
-
+        run: aws s3 sync build/ s3://weather-react090725
