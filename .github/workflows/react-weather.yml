@@ -26,3 +26,21 @@ jobs:
       - name: Confirm OIDC
         run: aws sts get-caller-identity
 
+      - name: add nodejs environment
+        uses: actions/setup-node@v3.9.1
+
+      - name: install nodejs dependencies
+        run: npm install       
+
+      - name: run unit test
+        run: npm test
+
+      - name: optimize static website
+        run: npm run build
+
+      - name: deploy to s3
+        run: aws s3 sync build/ s3://remote-backend300525 --delete
+        
+
+      
+
