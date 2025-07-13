@@ -8,12 +8,18 @@ permissions:
   id-token: write # Required for OIDC
   contents: read # To fetch the repository code
 
+env:
+  DOCKER_REPO: "nunuokorie/dgcl-project"
+
 jobs:
   build:
     name: Build and deploy react-weather-app
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
@@ -23,20 +29,20 @@ jobs:
       - name: Confirm OIDC
         run: aws sts get-caller-identity
 
-      - name: Checkout
-        uses: actions/checkout@v4.2.2
-
       - name: add nodejs environment
         uses: actions/setup-node@v3.9.1
 
       - name: install nodejs dependencies
         run: npm install
 
+      - name: run unit test
+        run: npm test
+
       - name: optimize static website
         run: npm run build
 
       - name: deploy to s3
-        run: aws s3 sync build/ s3://weather-react090725
+        run: aws s3 sync build/ s3://remote-backend300525
 
-      - name: get web address
-        run: aws s3api get-bucket-website --bucket weather-react090725
+      - name: build docker image
+        run: docker build -t $DOCKER_REPO:$GITHUB_RUN_NUMBER .
