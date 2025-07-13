@@ -58,10 +58,10 @@ jobs:
       - name: ssh to instance
         run: |
           mkdir -p ~/.ssh 
-          echo -e "${{secrets.PROD_EC2_KEY}}" > ~/.ssh/id_rsa 
+          echo "${{secrets.PROD_EC2_KEY}}" > ~/.ssh/id_rsa 
           chmod 400 ~/.ssh/id_rsa
           ssh-keyscan -H 54.226.12.148 >> ~/.ssh/known_hosts 
-          ssh -i ~/.ssh/id_rsa ubuntu@54.226.12.148 <<EOF 
+          ssh -i ~/.ssh/id_rsa ubuntu@54.226.12.148 <<-EOF 
           uptime && hostname
           docker stop $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
           docker rm $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
