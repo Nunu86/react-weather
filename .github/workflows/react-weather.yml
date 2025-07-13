@@ -37,3 +37,6 @@ jobs:
 
       - name: deploy to s3
         run: aws s3 sync build/ s3://weather-react090725
+
+      - name: get web address
+        run: aws s3 get-bucket-website --bucket s3://weather-react090725
