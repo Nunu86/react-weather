@@ -60,9 +60,9 @@ jobs:
           mkdir -p ~/.ssh 
           echo "${{secrets.PROD_EC2_KEY}}" > ~/.ssh/id_rsa 
           chmod 400 ~/.ssh/id_rsa
-          ssh-keyscan 54.226.12.148 >> ~/.ssh/known_hosts
+          ssh-keyscan 44.223.35.160 >> ~/.ssh/known_hosts
 
-          ssh -i ~/.ssh/id_rsa ubuntu@54.226.12.148 <<EOF 
+          ssh -i ~/.ssh/id_rsa ubuntu@44.223.35.160 <<EOF 
           uptime && hostname
           echo "${{secrets.DOCKERHUB_TOKEN}}" | docker login -u nunuokorie --password-stdin
           docker stop $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
