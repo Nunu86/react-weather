@@ -68,5 +68,5 @@ jobs:
           docker stop $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
           docker rm $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
           docker pull $DOCKER_REPO:$GITHUB_RUN_NUMBER
-          docker run $DOCKER_REPO:$GITHUB_RUN_NUMBER
+          docker run -p 3000:3000 $DOCKER_REPO:$GITHUB_RUN_NUMBER
           EOF
