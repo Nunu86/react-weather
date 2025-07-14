@@ -10,6 +10,7 @@ permissions:
 
 env:
   DOCKER_REPO: "nunuokorie/dgcl-project"
+  IMAGE_NAME: "mydgclapp"
 
 jobs:
   build:
@@ -65,8 +66,8 @@ jobs:
           ssh -i ~/.ssh/id_rsa ubuntu@34.229.6.66 <<EOF 
           uptime && hostname
           echo "${{secrets.DOCKERHUB_TOKEN}}" | docker login -u nunuokorie --password-stdin
-          docker stop $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
-          docker rm $DOCKER_REPO:$GITHUB_RUN_NUMBER || true
+          docker stop $IMAGE_NAME || true
+          docker rm $IMAGE_NAME || true
           docker pull $DOCKER_REPO:$GITHUB_RUN_NUMBER
-          docker run -p 3000:3000 $DOCKER_REPO:$GITHUB_RUN_NUMBER
+          docker run -d --name $IMAGE_NAME -p 3000:3000 $DOCKER_REPO:$GITHUB_RUN_NUMBER
           EOF
