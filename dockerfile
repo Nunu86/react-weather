@@ -18,5 +18,5 @@ EXPOSE 3000
 
 # Define the default command to run the application
 # CMD ["python", "app.py"]                # For Python
- CMD ["npm", "start", "node", "jason.js"]                    # For Node.js
+ CMD ["npm", "start"]                    # For Node.js
 
