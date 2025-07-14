@@ -1,25 +1,21 @@
-# Use a base image
-FROM node:alpine
+# Use Node.js version 17 base image
+FROM node:17
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy application code into the container
+# Copy package.json and install dependencies
 COPY package*.json ./
+RUN npm install
 
-# Install application dependencies
-# RUN pip install -r requirements.txt       # For Python
-RUN npm install                          # For Node.js
-
+# Copy the rest of the app
 COPY . .
 
-# Expose port (if required)
+# Expose the port
 EXPOSE 3000
 
-# Make sure React binds to all interfaces
+# Set environment variable so React binds to 0.0.0.0
 ENV HOST=0.0.0.0
 
-# Define the default command to run the application
-# CMD ["python", "app.py"]                # For Python
-CMD ["npm", "start"]                    # For Node.js
-
+# Run the app
+CMD ["npm", "start"]
