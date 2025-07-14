@@ -69,5 +69,5 @@ jobs:
           docker stop $IMAGE_NAME || true
           docker rm $IMAGE_NAME || true
           docker pull $DOCKER_REPO:$GITHUB_RUN_NUMBER
-          docker run -d --name $IMAGE_NAME -p 3000:3000 $DOCKER_REPO:$GITHUB_RUN_NUMBER
+          docker run -d -p 3000:3000 --name $IMAGE_NAME $DOCKER_REPO:$GITHUB_RUN_NUMBER
           EOF
