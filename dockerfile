@@ -21,5 +21,5 @@ ENV HOST=0.0.0.0
 
 # Define the default command to run the application
 # CMD ["python", "app.py"]                # For Python
- CMD ["npm", "start"]                    # For Node.js
+CMD ["npm", "start"]                    # For Node.js
 
